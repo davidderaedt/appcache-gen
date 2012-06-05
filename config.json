@@ -1,0 +1,3 @@
+{
+    "exclusions": ["*.appcache", ".DS_Store", "*.git", ".git"]
+}
