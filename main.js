@@ -40,8 +40,10 @@ define(function (require, exports, module) {
         Menus               = brackets.getModule("command/Menus");
 
 
+    var PROJECT_MENU = "project-menu";
+    var PROJECT_MENU_NAME = "Project";
     var GEN_COMMAND_ID = "appcache.appcachegen";
-    var GEN_MENU_NAME = "Create app cache";
+    var GEN_MENU_NAME = "Create app cache manifest";
     var VAL_COMMAND_ID = "appcache.appcacheval";
     var VAL_MENU_NAME = "Validate app cache";
     
@@ -250,9 +252,15 @@ define(function (require, exports, module) {
         CommandManager.register(VAL_MENU_NAME, VAL_COMMAND_ID, validateAppCache);
     
         // Add menus
-        var menu = Menus.getMenu(Menus.AppMenuBar.FILE_MENU);
-        menu.addMenuItem("menu-appcache-appcachegen", GEN_COMMAND_ID);
-        menu.addMenuItem("menu-appcache-appcacheval", VAL_COMMAND_ID);
+        var fileMenu = Menus.getMenu(Menus.AppMenuBar.FILE_MENU);
+        var projectMenu =  Menus.getMenu(PROJECT_MENU);
+        if (!projectMenu) {
+            projectMenu = Menus.addMenu(PROJECT_MENU_NAME, PROJECT_MENU, Menus.FIRST);
+        }
+        
+        projectMenu.addMenuItem("menu-project-appcachegen", GEN_COMMAND_ID);
+        fileMenu.addMenuDivider();
+        fileMenu.addMenuItem("menu-file-appcacheval", VAL_COMMAND_ID);
         
         // Load config
         var moduleDir = FileUtils.getNativeModuleDirectoryPath(module);

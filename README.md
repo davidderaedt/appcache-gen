@@ -7,14 +7,16 @@ To install, place the ```appcache-buddy``` folder inside the ```brackets/src/ext
 
 File generation
 =====
-Open a project in Brackets, and select ```Create App Cache``` form the ```File``` menu.
+Open a project in Brackets, and select ```Create App Cache Manifest``` form the ```PROJECT``` menu.
 
 This will create a ```manifest.appcache``` file at the root of your project folder, open it, and paste the generated content inside this document.
 Note that you still have to save the file by yourself to actually write the content to disk.
 
+The file contents simply lists the files of your project, excluding those specified by the chosen filters. You can configure those filters by editing the ```config.json``` file located at the root of the extension folder.
+
 If a ```manifest.appcache``` file already exists in this folder, it will not be overwritten: the newly generated cache will be displayed in your developer console, letting you choose how to update your original file.
 
-The file contents simply lists the files of your project, excluding those specified by the chosen filters. You can configure those filters by editing the ```config.json``` file located at the root of the extension folder.
+
 
 
 File validation
