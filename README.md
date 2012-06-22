@@ -5,9 +5,11 @@ A brackets extension to generate & validate application cache manifests.
 
 To install, place the ```appcache-buddy``` folder inside the ```brackets/src/extensions/user``` folder.
 
+**Compatible with Brackets Sprint10**
+
 File generation
 =====
-Open a project in Brackets, and select ```Create App Cache Manifest``` form the ```PROJECT``` menu.
+Open a project in Brackets, and select ```Create App Cache Manifest``` from the ```PROJECT``` menu.
 
 This will create a ```manifest.appcache``` file at the root of your project folder, open it, and paste the generated content inside this document.
 Note that you still have to save the file by yourself to actually write the content to disk.

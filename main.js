@@ -65,13 +65,12 @@ define(function (require, exports, module) {
 
     var outputString = "";
     
-    
+
     
     function showMessage(pMessage) {
         // TODO find a better way to handle dialogs
         // Having to use an existing dialog ID since no better choice seems available
         Dialogs.showModalDialog(Dialogs.DIALOG_ID_ERROR, "App Cache Buddy", pMessage);
-        //window.alert(pMessage);
     }
     
     
@@ -166,11 +165,15 @@ define(function (require, exports, module) {
     
     function createAppCacheFile() {
         
-        var destinationDir = FileUtils.getNativeModuleDirectoryPath(module);
+        var destinationDir = ProjectManager.getProjectRoot().fullPath;//FileUtils.getNativeModuleDirectoryPath(module);
         
         var promise = ProjectManager.createNewItem(destinationDir, MANIFEST_FILE_NAME, true)
             .done(function (data) {
-                EditorManager.getFocusedEditor()._codeMirror.replaceSelection(outputString);
+                console.log("createAppCacheFile");
+                DocumentManager.getDocumentForPath(data.fullPath)
+                    .done(function (doc) {
+                        doc.setText(outputString);
+                    });
             });
     }
 
@@ -258,9 +261,9 @@ define(function (require, exports, module) {
             projectMenu = Menus.addMenu(PROJECT_MENU_NAME, PROJECT_MENU, Menus.FIRST);
         }
         
-        projectMenu.addMenuItem("menu-project-appcachegen", GEN_COMMAND_ID);
+        projectMenu.addMenuItem(GEN_COMMAND_ID);//"menu-project-appcachegen", 
         fileMenu.addMenuDivider();
-        fileMenu.addMenuItem("menu-file-appcacheval", VAL_COMMAND_ID);
+        fileMenu.addMenuItem(VAL_COMMAND_ID);//"menu-file-appcacheval", 
         
         // Load config
         var moduleDir = FileUtils.getNativeModuleDirectoryPath(module);
