@@ -1,0 +1,12 @@
+{
+    "name": "dehats.appcachebuddy",
+    "title": "App Cache Buddy",
+    "description": "Generate and validate application cache manifests.",
+    "homepage": "https://github.com/davidderaedt/appcache-gen",
+    "version": "1.0.0",
+    "author": "David Deraedt <dderaedt@adobe.com> (http://www.dehats.com)",
+    "license": "MIT",
+    "engines": {
+        "brackets": ">=0.20.0"
+    }
+}
