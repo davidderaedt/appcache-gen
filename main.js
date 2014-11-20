@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         ProjectManager      = brackets.getModule("project/ProjectManager"),
         DocumentManager     = brackets.getModule("document/DocumentManager"),
         EditorManager       = brackets.getModule("editor/EditorManager"),
-        NativeFileSystem    = brackets.getModule("file/NativeFileSystem").NativeFileSystem,
+        FileSystem          = brackets.getModule("file/FileSystem"),
         FileUtils           = brackets.getModule("file/FileUtils"),
         Dialogs             = brackets.getModule("widgets/Dialogs"),
         Menus               = brackets.getModule("command/Menus");
@@ -77,7 +77,7 @@ define(function (require, exports, module) {
     
     function loadConfig(filePath) {
         
-        var fileEntry = new NativeFileSystem.FileEntry(filePath);
+        var fileEntry = FileSystem.getFileForPath(filePath);
         
         FileUtils.readAsText(fileEntry)
             .done(function (text, readTimestamp) {
@@ -88,7 +88,7 @@ define(function (require, exports, module) {
                 }
             })
             .fail(function (error) {
-                FileUtils.showFileOpenError(error.code, filePath);
+                FileUtils.showFileOpenError(error, filePath);
             });
     }
     
