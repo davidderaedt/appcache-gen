@@ -34,7 +34,7 @@ define(function (require, exports, module) {
         ProjectManager      = brackets.getModule("project/ProjectManager"),
         DocumentManager     = brackets.getModule("document/DocumentManager"),
         EditorManager       = brackets.getModule("editor/EditorManager"),
-        FileSystem          = brackets.getModule("file/FileSystem"),
+        FileSystem          = brackets.getModule("filesystem/FileSystem"),
         FileUtils           = brackets.getModule("file/FileUtils"),
         Dialogs             = brackets.getModule("widgets/Dialogs"),
         Menus               = brackets.getModule("command/Menus");
@@ -140,7 +140,6 @@ define(function (require, exports, module) {
                 for (entryI = 0; entryI < entries.length; entryI++) {
                     
                     entry = entries[entryI];
-                    //console.log(entry);
                     
                     if (isValidFile(entry.name)) {
                          
@@ -165,11 +164,10 @@ define(function (require, exports, module) {
     
     function createAppCacheFile() {
         
-        var destinationDir = ProjectManager.getProjectRoot().fullPath;//FileUtils.getNativeModuleDirectoryPath(module);
+        var destinationDir = ProjectManager.getProjectRoot().fullPath;
         
         var promise = ProjectManager.createNewItem(destinationDir, MANIFEST_FILE_NAME, true)
             .done(function (data) {
-                console.log("createAppCacheFile");
                 DocumentManager.getDocumentForPath(data.fullPath)
                     .done(function (doc) {
                         doc.setText(outputString);
@@ -190,7 +188,6 @@ define(function (require, exports, module) {
         getContent(root, "");
                     
         if (outputToConsole) {
-            console.log(outputString);
             showMessage(GEN_DONE_MSG);
         } else {
             createAppCacheFile();
@@ -204,7 +201,7 @@ define(function (require, exports, module) {
         // We need to first check if a manifest already exists before
         // taking the decision of the output method;
         
-        ProjectManager.getProjectRoot().getFile(MANIFEST_FILE_NAME, {},
+        FileSystem.resolve(ProjectManager.getProjectRoot().fullPath + MANIFEST_FILE_NAME,
             function success(entry) {
                 doGenerateAppCache(true);
             },
@@ -218,8 +215,6 @@ define(function (require, exports, module) {
     function validateAppCache() {
         
         var contents = DocumentManager.getCurrentDocument().getText();
-        
-        console.log(contents);
         
         $.ajax({
             url: VAL_API_URL,
